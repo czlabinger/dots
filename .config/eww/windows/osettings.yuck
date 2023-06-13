@@ -36,7 +36,7 @@
       )
     )
     (eventbox
-      ; :onhoverlost "scripts/toggle-osettings.sh --close &"
+      :onhoverlost "scripts/toggle-osettings.sh --close &"
       (box
         :orientation "v"
         :space-evenly false

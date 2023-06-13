@@ -51,15 +51,15 @@ get_position_time() {
 }
 
 get_cover() {
-	# COVER_URL=$1
+	COVER_URL=$1
 	mkdir -p "eww_covers"
 	cd "eww_covers" || exit
 
 	IMGPATH="cover_art"
-	echo '{"image": "eww_covers/cover_art_default", "color": {"alpha":"100","colors":{"color0":"#111215","color1":"#2B698F","color10":"#597591","color11":"#447CC0","color12":"#3A9FB7","color13":"#6192A6","color14":"#60ABCC","color15":"#c4c6ca","color2":"#597591","color3":"#447CC0","color4":"#3A9FB7","color5":"#6192A6","color6":"#60ABCC","color7":"#c4c6ca","color8":"#898a8d","color9":"#2B698F"},"special":{"background":"#111215","cursor":"#c4c6ca","foreground":"#c4c6ca"},"wallpaper":"~/.config/eww/eww_covers/cover_art","source":"󰗃"}}'
+	echo '{"image": "eww_covers/cover_art", "color": {"alpha":"100","colors":{"color0":"#111215","color1":"#2B698F","color10":"#597591","color11":"#447CC0","color12":"#3A9FB7","color13":"#6192A6","color14":"#60ABCC","color15":"#c4c6ca","color2":"#597591","color3":"#447CC0","color4":"#3A9FB7","color5":"#6192A6","color6":"#60ABCC","color7":"#c4c6ca","color8":"#898a8d","color9":"#2B698F"},"special":{"background":"#111215","cursor":"#c4c6ca","foreground":"#c4c6ca"},"wallpaper":"~/.config/eww/eww_covers/cover_art","source":"s"}}'
 
 	playerctl -F metadata mpris:artUrl 2>/dev/null | while read -r COVER_URL; do
-		music_source='󰐍'
+		music_source='󰖟'
 		if [[ "$COVER_URL" = https* ]]; then
 			music_source='󰖟'
 			coverurl="$(playerctl metadata mpris:artUrl)"

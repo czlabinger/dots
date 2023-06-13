@@ -35,7 +35,7 @@
         )
         (box ; Cover art
           :class "music-cover-art"
-          :style "background-image: url('${mcover.image}');"
+          :style "background-image: url('${music_cover.image}');"
         )
         (box :space-evenly true :orientation "h"
           (cavacol_musicwin :dir "up" :nth 0)
