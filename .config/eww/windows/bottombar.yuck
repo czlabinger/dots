@@ -184,7 +184,7 @@
         (box
           :valign "center"
           :class "bottombar-music-cover"
-          :style "background-image: url('${mcover.image}')"
+          :style "background-image: url('${music_cover.image}')"
         )
         (box
           :space-evenly false :orientation "v"
@@ -316,7 +316,7 @@
     (box
       :class "bottombar-bg"
       :style "
-      background-image: url('${mcover.image}');
+      background-image: url('${music_cover.image}');
       "
       (box :space-evenly false :orientation "v"
         :halign "start" :valign "start"

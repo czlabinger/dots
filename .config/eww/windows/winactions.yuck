@@ -40,7 +40,7 @@
           (box
             :halign "end"
             :class "winactions-media-cover"
-            :style "background-image: url('${mcover.image}')"
+            :style "background-image: url('${music_cover.image}')"
           )
         )
         (box

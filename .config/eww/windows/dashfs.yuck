@@ -518,7 +518,7 @@
           "
           (box
             :class "dashfs-music-cover"
-            :style "background-image: url('${mcover.image}')"
+            :style "background-image: url('${music_cover.image}')"
           )
           (eventbox
             :class "music-ctl-revealer"
