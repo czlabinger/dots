@@ -8,13 +8,17 @@ Based on [end-4s dots](https://github.com/end-4/dots-hyprland/tree/summer-gruv)
 Nvim config by me
 
 Create folder cache in .conf/eww/scripts for overview icons to work.
+
 For light to work add user to `video` group.
-Swap display not working because I don't have Swap and so i can not try it and I'm to lazy to fix it.
 
 On arch:
 ````
 sudo usermod -a -G video $USER
 ````
+
+
+Swap display not working because I don't have Swap and so i can not try it and I'm to lazy to fix it.
+
 
 ## Dependencies
 
