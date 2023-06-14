@@ -5,7 +5,7 @@ My current Dotfiles
 # dots
 
 Based on [end-4s dots](https://github.com/end-4/dots-hyprland/tree/summer-gruv)
-Neovide config from [nyoom-engineering](https://github.com/nyoom-engineering/nyoom.nvim)
+Nvim config by me
 
 Create folder cache in .conf/eww/scripts for overview icons to work.
 For light to work add user to `video` group.
