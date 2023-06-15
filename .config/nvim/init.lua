@@ -26,7 +26,7 @@ require('plugins/bufferline')
 require('plugins/treesitter')
 require('plugins/nvimtree')
 require('plugins/toggleterm')
-require('plugins/lsp')
+require('plugins/mason')
 
 -- Theme
 vim.opt.termguicolors = true

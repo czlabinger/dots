@@ -31,5 +31,9 @@ lazy.setup({
 	{'nvim-treesitter/nvim-treesitter'},
 	{'kyazdani42/nvim-tree.lua'},
 	{'akinsho/toggleterm.nvim'},
-	{'neovim/nvim-lspconfig'},
+	
+	{
+    "williamboman/mason.nvim",
+    build = ":MasonUpdate" -- :MasonUpdate updates registry contents
+	},
 })
