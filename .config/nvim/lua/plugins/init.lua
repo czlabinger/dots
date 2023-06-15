@@ -31,4 +31,5 @@ lazy.setup({
 	{'nvim-treesitter/nvim-treesitter'},
 	{'kyazdani42/nvim-tree.lua'},
 	{'akinsho/toggleterm.nvim'},
+	{'neovim/nvim-lspconfig'},
 })
