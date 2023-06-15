@@ -27,6 +27,9 @@ require('plugins/treesitter')
 require('plugins/nvimtree')
 require('plugins/toggleterm')
 require('plugins/mason')
+require('plugins/comp')
+require('plugins/lualine')
+require('plugins/alpha')
 
 -- Theme
 vim.opt.termguicolors = true

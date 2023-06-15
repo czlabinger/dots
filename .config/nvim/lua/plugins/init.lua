@@ -31,9 +31,12 @@ lazy.setup({
 	{'nvim-treesitter/nvim-treesitter'},
 	{'kyazdani42/nvim-tree.lua'},
 	{'akinsho/toggleterm.nvim'},
-	
+	{'L3MON4D3/LuaSnip'},
 	{
     "williamboman/mason.nvim",
     build = ":MasonUpdate" -- :MasonUpdate updates registry contents
 	},
+
+	{'vigoux/complementree.nvim'},
+	{'goolord/alpha-nvim'},
 })
