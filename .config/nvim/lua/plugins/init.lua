@@ -39,4 +39,7 @@ lazy.setup({
 
 	{'vigoux/complementree.nvim'},
 	{'goolord/alpha-nvim'},
+	{'jghauser/mkdir.nvim'},
+	{'NvChad/nvterm'},
+	{'declancm/cinnamon.nvim'},
 })

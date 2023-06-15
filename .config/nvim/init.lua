@@ -30,6 +30,7 @@ require('plugins/mason')
 require('plugins/comp')
 require('plugins/lualine')
 require('plugins/alpha')
+require('plugins/nvterm')
 
 -- Theme
 vim.opt.termguicolors = true
