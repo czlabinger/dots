@@ -1,0 +1,1 @@
+/usr/share/icons/Qogir/16/mimetypes/application-x-executable.svg
