@@ -1,39 +1,21 @@
---General
-vim.opt.autochdir = true
-vim.opt.autoindent = true
-vim.opt.autoread = true
-vim.opt.number = true
-vim.opt.mouse = 'a'
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.breakindent = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
+require "core"
 
--- Keybindings
-vim.g.mapleader = ' '
-vim.keymap.set('n', '<leader>w', '<cmd>w<cr>')
+local custom_init_path = vim.api.nvim_get_runtime_file("lua/custom/init.lua", false)[1]
 
--- Copy/Paste
-vim.keymap.set({'n', 'x'}, 'cp', '"+y')
-vim.keymap.set({'n', 'x'}, 'cv', '"+p')
+if custom_init_path then
+  dofile(custom_init_path)
+end
 
+require("core.utils").load_mappings()
 
--- Plugins
-require('plugins/init')
-require('plugins/lualine')
-require('plugins/bufferline')
-require('plugins/treesitter')
-require('plugins/nvimtree')
-require('plugins/toggleterm')
-require('plugins/mason')
-require('plugins/comp')
-require('plugins/lualine')
-require('plugins/alpha')
-require('plugins/nvterm')
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
--- Theme
-vim.opt.termguicolors = true
-vim.cmd.colorscheme('tokyonight')
+-- bootstrap lazy.nvim!
+if not vim.loop.fs_stat(lazypath) then
+  require("core.bootstrap").gen_chadrc_template()
+  require("core.bootstrap").lazy(lazypath)
+end
 
-require('lualine').setup()
+dofile(vim.g.base46_cache .. "defaults")
+vim.opt.rtp:prepend(lazypath)
+require "plugins"
