@@ -130,7 +130,7 @@
               (button
                 :class "wifi-arrow-btn"
                 :style "font-family: Material Symbols Rounded;"
-                :onclick "gnome-control-center wifi &"
+                :onclick "foot sh -c 'sleep 0.01 ; nmtui' &"
                 ""
               )
             )
@@ -275,7 +275,7 @@
                     :class "osettings-tag-material"
                     :tooltip "Pause/Resume Notifications"
                     :onclick "scripts/notifications toggle &"
-                    "Pause"
+                    {notif_icons.paused ? "" : "Pause"}
                   )
                   (button :valign "center" :yalign 0.5
                     :class "osettings-tag-material"
