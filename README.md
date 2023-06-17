@@ -5,7 +5,8 @@ My current Dotfiles
 # dots
 
 Based on [end-4s dots](https://github.com/end-4/dots-hyprland/tree/summer-gruv)
-Nvim config by me
+
+Nvim config by [ahujaankushs dots](https://github.com/ahujaankush/AetherizedDots)
 
 Create folder cache in .conf/eww/scripts for overview icons to work.
 
