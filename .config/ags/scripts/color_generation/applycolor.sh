@@ -11,12 +11,6 @@ colorstrings=''
 colorlist=()
 colorvalues=()
 
-# wallpath=$(swww query | awk -F 'image: ' '{print $2}')
-# wallpath_png="$HOME"'/.cache/ags/user/generated/hypr/lockscreen.png'
-# convert "$wallpath" "$wallpath_png"
-# wallpath_png=$(echo "$wallpath_png" | sed 's/\//\\\//g')
-# wallpath_png=$(sed 's/\//\\\\\//g' <<< "$wallpath_png")
-
 if [[ "$1" = "--bad-apple" ]]; then
     cp scripts/color_generation/specials/_material_badapple.scss scss/_material.scss
     colornames=$(cat scripts/color_generation/specials/_material_badapple.scss | cut -d: -f1)
@@ -65,7 +59,7 @@ apply_gtklock() {
 
     # Copy template
     mkdir -p "$HOME"/.cache/ags/user/generated/gtklock
-    sass "scripts/templates/gtklock/main.scss" "$HOME"/.cache/ags/user/generated/gtklock/style.css
+    sassc "scripts/templates/gtklock/main.scss" "$HOME"/.cache/ags/user/generated/gtklock/style.css
     cp "$HOME"/.cache/ags/user/generated/gtklock/style.css "$HOME"/.config/gtklock/style.css
 }
 
@@ -96,7 +90,6 @@ apply_foot() {
     cp "scripts/templates/foot/foot.ini" "$HOME"/.cache/ags/user/generated/foot/foot.ini
     # Apply colors
     for i in "${!colorlist[@]}"; do
-        # sed -i "s/${colorlist[$i]} #/${colorvalues[$i]#\#}/g" "$HOME"/.cache/ags/user/generated/foot/foot.ini
         sed -i "s/{{ ${colorlist[$i]} }}/${colorvalues[$i]#\#}/g" "$HOME"/.cache/ags/user/generated/foot/foot.ini
     done
 
@@ -125,39 +118,44 @@ apply_term() {
     done
 }
 
+apply_term() {
+    # Check if scripts/templates/foot/foot.ini exists
+    if [ ! -f "scripts/templates/terminal/sequences.txt" ]; then
+        echo "Template file not found for Terminal. Skipping that."
+        return
+    fi
+    if [ ! -d "$HOME/.cache/ags/user/colorschemes" ]; then
+        mkdir -p "$HOME/.cache/ags/user/colorschemes"
+    fi
+    # Copy template
+    cp "scripts/templates/terminal/sequences.txt" "$HOME/.cache/ags/user/colorschemes/sequences"
+    # Apply colors
+    for i in "${!colorlist[@]}"; do
+        sed -i "s/${colorlist[$i]} #/${colorvalues[$i]#\#}/g" "$HOME/.cache/ags/user/colorschemes/sequences"
+    done
+
+    for file in /dev/pts/*; do
+      if [[ $file =~ ^/dev/pts/[0-9]+$ ]]; then
+        cat "$HOME/.cache/ags/user/colorschemes/sequences" > "$file"
+      fi
+    done
+}
+
 apply_hyprland() {
-    # Check if scripts/templates/hypr/hyprland/colors.conf exists
-    if [ ! -f "scripts/templates/hypr/hyprland/colors.conf" ]; then
+    # Check if scripts/templates/hypr/colors.conf exists
+    if [ ! -f "scripts/templates/hypr/colors.conf" ]; then
         echo "Template file not found for Hyprland colors. Skipping that."
         return
     fi
     # Copy template
-    mkdir -p "$HOME"/.cache/ags/user/generated/hypr/hyprland
-    cp "scripts/templates/hypr/hyprland/colors.conf" "$HOME"/.cache/ags/user/generated/hypr/hyprland/colors.conf
+    mkdir -p "$HOME"/.cache/ags/user/generated/hypr
+    cp "scripts/templates/hypr/colors.conf" "$HOME"/.cache/ags/user/generated/hypr/colors.conf
     # Apply colors
     for i in "${!colorlist[@]}"; do
-        sed -i "s/{{ ${colorlist[$i]} }}/${colorvalues[$i]#\#}/g" "$HOME"/.cache/ags/user/generated/hypr/hyprland/colors.conf
+        sed -i "s/{{ ${colorlist[$i]} }}/${colorvalues[$i]#\#}/g" "$HOME"/.cache/ags/user/generated/hypr/colors.conf
     done
 
-    cp "$HOME"/.cache/ags/user/generated/hypr/hyprland/colors.conf "$HOME"/.config/hypr/hyprland/colors.conf
-}
-
-apply_hyprlock() {
-    # Check if scripts/templates/hypr/hyprlock.conf exists
-    if [ ! -f "scripts/templates/hypr/hyprlock.conf" ]; then
-        echo "Template file not found for hyprlock. Skipping that."
-        return
-    fi
-    # Copy template
-    mkdir -p "$HOME"/.cache/ags/user/generated/hypr/
-    cp "scripts/templates/hypr/hyprlock.conf" "$HOME"/.cache/ags/user/generated/hypr/hyprlock.conf
-    # Apply colors
-    # sed -i "s/{{ SWWW_WALL }}/${wallpath_png}/g" "$HOME"/.cache/ags/user/generated/hypr/hyprlock.conf
-    for i in "${!colorlist[@]}"; do
-        sed -i "s/{{ ${colorlist[$i]} }}/${colorvalues[$i]#\#}/g" "$HOME"/.cache/ags/user/generated/hypr/hyprlock.conf
-    done
-
-    cp "$HOME"/.cache/ags/user/generated/hypr/hyprlock.conf "$HOME"/.config/hypr/hyprlock.conf
+    cp "$HOME"/.cache/ags/user/generated/hypr/colors.conf "$HOME"/.config/hypr/colors.conf
 }
 
 apply_gtk() { # Using gradience-cli
@@ -188,16 +186,47 @@ apply_gtk() { # Using gradience-cli
 }
 
 apply_ags() {
-    sass "$HOME"/.config/ags/scss/main.scss "$HOME"/.cache/ags/user/generated/style.css
+    sassc "$HOME"/.config/ags/scss/main.scss "$HOME"/.config/ags/style.css
     ags run-js 'openColorScheme.value = true; Utils.timeout(2000, () => openColorScheme.value = false);'
-    ags run-js "App.resetCss(); App.applyCss('${HOME}/.cache/ags/user/generated/style.css');"
+    ags run-js "App.resetCss(); App.applyCss('${HOME}/.config/ags/style.css');"
+}
+
+apply_swaylock() {
+    if [ ! -f "scripts/templates/swaylock/config" ]; then
+        echo "Template file not found for swaylock colors. Skipping that."
+        return
+    fi
+    # Copy template
+    cp "scripts/templates/swaylock/config" "$HOME"/.cache/ags/user/generated/swaylock/config
+    # Apply colors
+    for i in "${!colorlist[@]}"; do
+        sed -i "s/{{ ${colorlist[$i]} }}/${colorvalues[$i]#\#}/g" "$HOME"/.cache/ags/user/generated/swaylock/config
+    done
+
+    mv "$HOME"/.cache/ags/user/generated/swaylock/config "$HOME/.config/swaylock/config"
+}
+
+apply_hyprlock() {
+    if [ ! -f "scripts/templates/hypr/hyprlock.conf" ]; then
+        echo "Template file not found for Hyprlock colors. Skipping that."
+        return
+    fi
+    # Copy template
+    cp "scripts/templates/hypr/hyprlock.conf" "$HOME"/.cache/ags/user/generated/hypr/hyprlock.conf
+    # Apply colors
+    for i in "${!colorlist[@]}"; do
+        sed -i "s/{{ ${colorlist[$i]} }}/${colorvalues[$i]#\#}/g" "$HOME"/.cache/ags/user/generated/hypr/hyprlock.conf
+    done
+
+    cp "$HOME"/.cache/ags/user/generated/hypr/hyprlock.conf "$HOME/.config/hypr/hyprlock.conf"
 }
 
 apply_ags &
 apply_hyprland &
-apply_hyprlock &
 apply_gtk &
 apply_foot &
-# apply_gtklock &
+apply_gtklock &
 apply_fuzzel &
 apply_term &
+apply_swaylock &
+apply_hyprlock &
