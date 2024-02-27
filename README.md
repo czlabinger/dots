@@ -94,7 +94,7 @@
 ## Stonks
 
 - _thank you_
-  [![Stargazers over time](https://starchart.cc/czlabinger/dots.svg?background=%230d1117&axis=%23e6edf3&line=%234759e7)](https://starchart.cc/end-4/dots-hyprland)
+  [![Stargazers over time](https://starchart.cc/czlabinger/dots.svg?background=%230d1117&axis=%23e6edf3&line=%234759e7)](https://starchart.cc/czlabinger/dots)
 
 ## Inspirations
 
