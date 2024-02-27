@@ -12,6 +12,12 @@ if status is-interactive
 
 end
 
+alias nvim="~/.local/bin/nvim.sh"
+alias l='exa'
+alias la='exa -a'
+alias ll='exa -lah'
+alias ls='exa --color=auto'
+
 starship init fish | source
 if test -f ~/.config/fish/sequences.txt
     cat ~/.config/fish/sequences.txt
