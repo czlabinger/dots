@@ -19,6 +19,8 @@ alias ll='exa -lah'
 alias ls='exa --color=auto'
 
 starship init fish | source
+zoxide init --cmd cd fish | source
+
 if test -f ~/.config/fish/sequences.txt
     cat ~/.config/fish/sequences.txt
 end
