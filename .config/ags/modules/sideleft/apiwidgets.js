@@ -4,16 +4,14 @@ import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 const { Box, Button, CenterBox, Entry, EventBox, Icon, Label, Overlay, Revealer, Scrollable, Stack } = Widget;
 const { execAsync, exec } = Utils;
 import { setupCursorHover, setupCursorHoverInfo } from '../.widgetutils/cursorhover.js';
-import { contentStack } from './sideleft.js';
 // APIs
-import ChatGPT from '../../services/gpt.js';
+import GPTService from '../../services/gpt.js';
 import Gemini from '../../services/gemini.js';
 import { geminiView, geminiCommands, sendMessage as geminiSendMessage, geminiTabIcon } from './apis/gemini.js';
 import { chatGPTView, chatGPTCommands, sendMessage as chatGPTSendMessage, chatGPTTabIcon } from './apis/chatgpt.js';
 import { waifuView, waifuCommands, sendMessage as waifuSendMessage, waifuTabIcon } from './apis/waifu.js';
 import { enableClickthrough } from "../.widgetutils/clickthrough.js";
 const TextView = Widget.subclass(Gtk.TextView, "AgsTextView");
-
 
 const EXPAND_INPUT_THRESHOLD = 30;
 const APIS = [
@@ -65,9 +63,9 @@ export const chatEntry = TextView({
     acceptsTab: false,
     className: 'sidebar-chat-entry txt txt-smallie',
     setup: (self) => self
-        .hook(ChatGPT, (self) => {
-            if (APIS[currentApiId].name != 'Assistant (ChatGPT 3.5)') return;
-            self.placeholderText = (ChatGPT.key.length > 0 ? 'Message ChatGPT...' : 'Enter OpenAI API Key...');
+        .hook(GPTService, (self) => {
+            if (APIS[currentApiId].name != 'Assistant (GPTs)') return;
+            self.placeholderText = (GPTService.key.length > 0 ? 'Message the model...' : 'Enter API Key...');
         }, 'hasKey')
         .hook(Gemini, (self) => {
             if (APIS[currentApiId].name != 'Assistant (Gemini Pro)') return;
@@ -82,13 +80,13 @@ export const chatEntry = TextView({
             // Global keybinds
             if (!(event.get_state()[1] & Gdk.ModifierType.CONTROL_MASK) &&
                 event.get_keyval()[1] === Gdk.KEY_Page_Down) {
-                const toSwitchTab = contentStack.get_visible_child();
-                toSwitchTab.attribute.nextTab();
+                apiWidgets.attribute.nextTab();
+                return true;
             }
             else if (!(event.get_state()[1] & Gdk.ModifierType.CONTROL_MASK) &&
                 event.get_keyval()[1] === Gdk.KEY_Page_Up) {
-                const toSwitchTab = contentStack.get_visible_child();
-                toSwitchTab.attribute.prevTab();
+                apiWidgets.attribute.prevTab();
+                return true;
             }
         })
     ,
@@ -206,7 +204,7 @@ const apiSwitcher = CenterBox({
     }),
 })
 
-export default Widget.Box({
+const apiWidgets = Widget.Box({
     attribute: {
         'nextTab': () => switchToTab(Math.min(currentApiId + 1, APIS.length - 1)),
         'prevTab': () => switchToTab(Math.max(0, currentApiId - 1)),
@@ -221,3 +219,5 @@ export default Widget.Box({
         textboxArea,
     ],
 });
+
+export default apiWidgets;

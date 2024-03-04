@@ -4,9 +4,9 @@ import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
 const { Box, Button, EventBox, Label, Overlay, Revealer, Scrollable } = Widget;
 const { execAsync, exec } = Utils;
-import { AnimatedCircProg } from "../.commonwidgets/cairo_circularprogress.js";
-import { MaterialIcon } from '../.commonwidgets/materialicon.js';
-import { showMusicControls } from '../../variables.js';
+import { AnimatedCircProg } from "../../.commonwidgets/cairo_circularprogress.js";
+import { MaterialIcon } from '../../.commonwidgets/materialicon.js';
+import { showMusicControls } from '../../../variables.js';
 
 const CUSTOM_MODULE_CONTENT_INTERVAL_FILE = `${GLib.get_home_dir()}/.cache/ags/user/scripts/custom-module-interval.txt`;
 const CUSTOM_MODULE_CONTENT_SCRIPT = `${GLib.get_home_dir()}/.cache/ags/user/scripts/custom-module-poll.sh`;
@@ -42,16 +42,19 @@ const BarResource = (name, icon, command) => {
         vpack: 'center',
         hpack: 'center',
     });
-    const resourceProgress = Overlay({
-        child: Box({
-            vpack: 'center',
-            className: 'bar-batt',
-            homogeneous: true,
-            children: [
-                MaterialIcon(icon, 'small'),
-            ],
-        }),
-        overlays: [resourceCircProg]
+    const resourceProgress = Box({
+        homogeneous: true,
+        children: [Overlay({
+            child: Box({
+                vpack: 'center',
+                className: 'bar-batt',
+                homogeneous: true,
+                children: [
+                    MaterialIcon(icon, 'small'),
+                ],
+            }),
+            overlays: [resourceCircProg]
+        })]
     });
     const resourceLabel = Label({
         className: 'txt-smallie txt-onSurfaceVariant',
@@ -59,8 +62,8 @@ const BarResource = (name, icon, command) => {
     const widget = Box({
         className: 'spacing-h-4 txt-onSurfaceVariant',
         children: [
-            resourceLabel,
             resourceProgress,
+            resourceLabel,
         ],
         setup: (self) => self
             .poll(5000, () => execAsync(['bash', '-c', command])
@@ -208,10 +211,10 @@ export default () => {
         onSecondaryClickRelease: () => execAsync(['bash', '-c', 'playerctl next || playerctl position `bc <<< "100 * $(playerctl metadata mpris:length) / 1000000 / 100"` &']).catch(print),
         onMiddleClickRelease: () => execAsync('playerctl play-pause').catch(print),
         child: Box({
-            className: 'spacing-h-5',
+            className: 'spacing-h-4',
             children: [
-                BarGroup({ child: musicStuff }),
                 SystemResourcesOrCustomModule(),
+                BarGroup({ child: musicStuff }),
             ]
         })
     });
