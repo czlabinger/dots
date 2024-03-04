@@ -21,8 +21,8 @@ alias ls='exa --color=auto'
 starship init fish | source
 zoxide init --cmd cd fish | source
 
-if test -f ~/.config/fish/sequences.txt
-    cat ~/.config/fish/sequences.txt
+if test -f ~/.cache/ags/user/generated/terminal/sequences.txt
+    cat ~/.cache/ags/user/generated/terminal/sequences.txt
 end
 
 alias pamcan=pacman
