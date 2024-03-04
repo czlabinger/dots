@@ -9,6 +9,11 @@ add_newline = false
 # $cmd_duration$username$hostname $directory $git_branch
 # $character
 # """
+
+right_format = """\
+$cmd_duration
+"""
+
 format = """
 $username$hostname$directory$rust$git_branch$git_status$package$golang$terraform$docker_context$python$docker_context$nodejs
 $character
