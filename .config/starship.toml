@@ -10,19 +10,16 @@ add_newline = false
 # $character
 # """
 
-right_format = """\
-$cmd_duration
-"""
 
 format = """
-$username$hostname$directory$rust$git_branch$git_status$package$golang$terraform$docker_context$python$docker_context$nodejs
+$cmd_duration$directory $rust $git_branch $git_status $package $golang $terraform $docker_context $python $docker_context $nodejs 
 $character
 """
 
 # Replace the "❯" symbol in the prompt with "➜"
 [character]                            # The name of the module we are configuring is "character"
-success_symbol = "[🭧🭒](bold fg:blue)[ ➜ ](bold bg:blue fg:#000000)[](bold fg:blue)"
-error_symbol = "[🭧🭒](bold fg:red)[ ✗ ](bold bg:red fg:#000000)[](bold fg:red)"
+success_symbol = "[• ](bold fg:blue) "
+error_symbol = "[• 󰅙](bold fg:red) "
 
 # Disable the package module, hiding it from the prompt completely
 [package]
@@ -38,6 +35,26 @@ symbol = " "
 style = "bg: green"
 format = " on [$symbol$branch(:$remote_branch)]($style) "
 symbol = " "
+
+[git_commit]
+commit_hash_length = 4
+tag_symbol = " "
+
+[git_state]
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
+cherry_pick = "[🍒 PICKING](bold red)"
+
+[git_status]
+conflicted = " 🏳 "
+ahead = " 🏎💨 "
+behind = " 😰 "
+diverged = " 😵 "
+untracked = " 🤷 ‍"
+stashed = " 📦 "
+modified = " 📝 "
+staged = '[++\($count\)](blue)'
+renamed = " ✍️ "
+deleted = " 🗑 "
 
 [golang]
 symbol = " "
@@ -100,7 +117,7 @@ detect_folders = ["node_modules"]
 
 [hostname]
 ssh_only = false
-format =  "[ ](bold bg:yellow fg:blue)[$hostname ](bg:yellow bold fg:#000000)[ ](bold fg:yellow bg:green)"
+format =  "[•$hostname](bg:cyan bold fg:black)[](bold fg:cyan )"
 trim_at = ".companyname.com"
 disabled = false
 
@@ -113,40 +130,28 @@ format = '🕙[\[ $time \]]($style) '
 time_format = "%T"
 
 [username]
-style_user = "bold bg:blue fg:#000000"
+style_user = "bold bg:cyan fg:black"
 style_root = "red bold"
-format = "[🭃](bold fg:blue)[$user ]($style)"
+format = "[](bold fg:cyan)[$user]($style)"
 disabled = false
 show_always = true
 
 [directory]
-home_symbol = " "
-read_only = "  "
-style = "bold bg:green  fg:#000000"
-truncation_length = 2
-truncation_symbol = "./"
-format = '[$path]($style)[🭞](fg:green )'
-
+home_symbol = "  "
+read_only = "  "
+style = "bg:blue fg:black"
+truncation_length = 6
+truncation_symbol = "••/"
+format = '[](bold fg:blue)[$path ]($style)[](bold fg:blue)'
 
 [directory.substitutions]
-"Documents" = " "
-"/" = "/"
-"Downloads" = " "
-"Music" = " "
-"Pictures" = " "
+"Desktop" = "  "
+"Documents" = "  "
+"Downloads" = "  "
+"Music" = " 󰎈 "
+"Pictures" = "  "
+"Videos" = "  "
 
 [cmd_duration]
 min_time = 0
-format = '[🬈🬖🬥🬅 ](bold bg:cyan fg:#000000)[time:$duration](bold bg:cyan fg:#000000)[ 🬖🬥🬔🬗](bold bg:cyan fg:#000000)'
-
-[git_status]
-conflicted = "🏳"
-ahead = "🏎💨"
-behind = "😰"
-diverged = "😵"
-untracked = "🤷"
-stashed = "📦"
-modified = "📝"
-staged = '[++\($count\)](blue)'
-renamed = "✍️"
-deleted = "🗑"
+format = '[](bold fg:yellow)[ $duration](bold bg:yellow fg:black)[](bold fg:yellow) •• '
