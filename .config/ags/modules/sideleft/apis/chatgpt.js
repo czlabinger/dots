@@ -79,7 +79,7 @@ const ProviderSwitcher = () => {
     const providerList = Revealer({
         revealChild: false,
         transition: 'slide_down',
-        transitionDuration: 180,
+        transitionDuration: userOptions.animations.durationLarge,
         child: Box({
             vertical: true, className: 'spacing-v-5 sidebar-chat-providerswitcher-list',
             children: [
@@ -131,12 +131,12 @@ const GPTInfo = () => {
                         className: 'txt-smallie txt-subtext',
                         wrap: true,
                         justify: Gtk.Justification.CENTER,
-                        label: 'Powered by OpenAI',
+                        label: 'Provider shown above',
                     }),
                     Button({
                         className: 'txt-subtext txt-norm icon-material',
                         label: 'info',
-                        tooltipText: 'Uses gpt-3.5-turbo.\nNot affiliated, endorsed, or sponsored by OpenAI.\n\nPrivacy: OpenAI claims they do not use your data when you use their API.',
+                        tooltipText: 'Uses gpt-3.5-turbo.\nNot affiliated, endorsed, or sponsored by OpenAI.\n\nPrivacy: OpenAI claims they do not use your data\nwhen you use their API. Idk about others.',
                         setup: setupCursorHoverInfo,
                     }),
                 ]
@@ -209,7 +209,7 @@ export const OpenaiApiKeyInstructions = () => Box({
     homogeneous: true,
     children: [Revealer({
         transition: 'slide_down',
-        transitionDuration: 150,
+        transitionDuration: userOptions.animations.durationLarge,
         setup: (self) => self
             .hook(GPTService, (self, hasKey) => {
                 self.revealChild = (GPTService.key.length == 0);
