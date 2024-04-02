@@ -3,6 +3,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Service from 'resource:///com/github/Aylur/ags/service.js';
 import { Keybinds } from "./keybinds.js";
 import { setupCursorHover } from "../.widgetutils/cursorhover.js";
+import PopupWindow from '../.widgethacks/popupwindow.js';
 
 const cheatsheetHeader = () => Widget.CenterBox({
     vertical: false,
@@ -13,12 +14,12 @@ const cheatsheetHeader = () => Widget.CenterBox({
         children: [
             Widget.Box({
                 hpack: 'center',
-                className: 'spacing-h-5',
+                className: 'spacing-h-5 cheatsheet-title',
                 children: [
                     Widget.Label({
                         hpack: 'center',
                         css: 'margin-right: 0.682rem;',
-                        className: 'txt-title txt',
+                        className: 'txt-title',
                         label: 'Cheat sheet',
                     }),
                     Widget.Label({
@@ -68,11 +69,10 @@ const clickOutsideToClose = Widget.EventBox({
     onMiddleClick: () => App.closeWindow('cheatsheet'),
 });
 
-export default () => Widget.Window({
+export default () => PopupWindow({
     name: 'cheatsheet',
     exclusivity: 'ignore',
     keymode: 'exclusive',
-    popup: true,
     visible: false,
     child: Widget.Box({
         vertical: true,
