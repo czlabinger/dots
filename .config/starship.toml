@@ -3,8 +3,7 @@ success_symbol = "[• ](bold fg:blue) "
 error_symbol = "[• 󰅙](bold fg:red) "
 
 [format]
-command = "$cmd_duration$directory $nix_shell$rust$git_branch$git_status$package$golang$terraform$docker_context$python$docker_context$nodejs"
-shell = "$character"
+format = "$cmd_duration$directory $nix_shell$rust$git_branch$git_status$package$golang$terraform$docker_context$python$docker_context$nodejs$character"
 
 [package]
 disabled = true
