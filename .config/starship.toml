@@ -2,9 +2,6 @@
 success_symbol = "[• ](bold fg:blue) "
 error_symbol = "[• 󰅙](bold fg:red) "
 
-[format]
-format = "$cmd_duration$directory $nix_shell$rust$git_branch$git_status$package$golang$terraform$docker_context$python$docker_context$nodejs$character"
-
 [package]
 disabled = true
 
@@ -15,7 +12,7 @@ symbol = " "
 symbol = " "
 
 [git_branch]
-style = "bg:green"
+style = "green"
 format = " on [$symbol$branch(:$remote_branch)]($style) "
 symbol = " "
 
