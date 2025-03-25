@@ -9,14 +9,17 @@ if not vim.loop.fs_stat(lazypath) then
 		lazypath,
 	})
 end
+
 vim.opt.rtp:prepend(lazypath)
 
 vim.opt.relativenumber = false
+vim.opt.number = true
 
 require("lazy").setup({
 	spec = {
 		{ "LazyVim/LazyVim", import = "lazyvim.plugins" },
-		{ import = "lazyvim.plugins.extras.lsp.none-ls" }, -- Enable none-ls extra
 		{ import = "plugins" },
 	},
 })
+
+require("vgit").setup()
