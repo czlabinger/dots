@@ -49,12 +49,14 @@ return {
 		},
 		config = function()
 			require("mason").setup()
-			require("mason-lspconfig").setup()
+			require("mason-lspconfig").setup({
+				ensure_installed = { "tsserver", "eslint", "jsonls", "html", "cssls" }, -- Ensure these servers are installed
+			})
+
 			local lspconfig = require("lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-			-- Setup language servers here
-			local servers = { "lua_ls", "rust_analyzer", "pyright", "tsserver" }
+			local servers = { "lua_ls", "rust_analyzer", "pyright", "tsserver", "eslint", "jsonls", "html", "cssls" }
 			for _, lsp in ipairs(servers) do
 				lspconfig[lsp].setup({
 					capabilities = capabilities,
@@ -71,22 +73,11 @@ return {
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
 					"lua",
-					"vim",
-					"vimdoc",
-					"query",
 					"javascript",
 					"typescript",
-					"rust",
-					"python",
-					"css",
 					"html",
-					"latex",
-					"norg",
-					"scss",
-					"svelte",
-					"tsx",
-					"typst",
-					"vue",
+					"css",
+					-- Add other languages as needed
 				},
 				highlight = { enable = true },
 			})
@@ -163,8 +154,7 @@ return {
 	{
 		"tanvirtin/vgit.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
-		-- Lazy loading on 'VimEnter' event is necessary.
-		event = "VimEnter",
+		event = "VimEnter", -- Lazy loading on 'VimEnter' event is necessary.
 		config = function()
 			require("vgit").setup()
 		end,
@@ -174,25 +164,19 @@ return {
 	{
 		"MagicDuck/grug-far.nvim",
 		config = function()
-			-- optional setup call to override plugin options
-			-- alternatively you can set options with vim.g.grug_far = { ... }
 			require("grug-far").setup({
 				-- options, see Configuration section below
-				-- there are no required options atm
-				-- engine = 'ripgrep' is default, but 'astgrep' or 'astgrep-rules' can
-				-- be specified
+				engine = "ripgrep", -- Default engine for search and replace
 			})
 		end,
 	},
 
-	-- Markdown something
+	-- Markdown TOC generation
 	{
 		"hedyhli/markdown-toc.nvim",
 		ft = "markdown", -- Lazy load on markdown filetype
-		cmd = { "Mtoc" }, -- Or, lazy load on "Mtoc" command
-		opts = {
-			-- Your configuration here (optional)
-		},
+		cmd = { "Mtoc" }, -- Or, lazy load on the Mtoc command
+		opts = {}, -- Optional configuration for the plugin
 	},
 
 	-- Additional plugins without specific configurations
@@ -212,4 +196,5 @@ return {
 	{ "lukas-reineke/indent-blankline.nvim" },
 	{ "folke/todo-comments.nvim" },
 	{ "NeogitOrg/neogit" },
+	{ "RRethy/vim-illuminate" },
 }

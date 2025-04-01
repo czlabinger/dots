@@ -589,5 +589,14 @@
   "bar.workspaces.workspaces": 0,
   "theme.matugen": true,
   "wallpaper.enable": true,
-  "bar.scrollSpeed": 0
+  "bar.scrollSpeed": 0,
+  "menus.clock.weather.location": "Vienna",
+  "menus.clock.time.military": true,
+  "menus.clock.weather.unit": "metric",
+  "menus.dashboard.shortcuts.left.shortcut1.icon": "",
+  "menus.dashboard.shortcuts.left.shortcut1.command": "fiefox",
+  "menus.dashboard.shortcuts.left.shortcut1.tooltip": "Firefox",
+  "menus.dashboard.shortcuts.left.shortcut3.command": "webcord",
+  "bar.network.truncation_size": 8,
+  "bar.clock.format": "%H:%M:%S %d/%m/%Y"
 }

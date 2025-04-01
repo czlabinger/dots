@@ -12,9 +12,6 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-vim.opt.relativenumber = false
-vim.opt.number = true
-
 require("lazy").setup({
 	spec = {
 		{ "LazyVim/LazyVim", import = "lazyvim.plugins" },
@@ -23,3 +20,6 @@ require("lazy").setup({
 })
 
 require("vgit").setup()
+
+vim.opt.relativenumber = false
+vim.opt.number = true
